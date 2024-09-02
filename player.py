@@ -18,3 +18,23 @@ class Player(CircleShape):
 
     def draw(self, screen):
         return pygame.draw.polygon(screen, WHITE, self.triangle(), width= 2)
+
+    def rotate(self, dt):
+        self.rotation += (PLAYER_TURN_SPEED * dt)
+
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+
+        # Ship movement
+        if keys[pygame.K_j]: # Rotate left
+            self.rotate(-dt) 
+        if keys[pygame.K_l]: # Rotate right
+            self.rotate(dt) 
+        if keys[pygame.K_f]: # Move forward
+            self.move(dt)
+        if keys[pygame.K_d]: # Move backwards
+            self.move(-dt)
+
+    def move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt
