@@ -42,6 +42,11 @@ def main():
 
         dt = clock.tick(60) / 1000
 
+        for asteroid in asteroids:
+            for bullet in shots:
+                if bullet.collision(asteroid):
+                    bullet.kill()
+                    asteroid.split()
 
 
 if __name__ == "__main__":
